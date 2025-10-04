@@ -1,0 +1,23 @@
+# -----------------------------------------------------------------------------
+# Example Scenario Configuration for PyPAIR
+# -----------------------------------------------------------------------------
+# This file defines the input parameters for a single simulation run.
+# It is used by the `scripts/run_scenario.py` script.
+# -----------------------------------------------------------------------------
+
+# num_cases: The total number of Monte Carlo simulations to run.
+# Higher numbers provide better statistical accuracy but take longer to compute.
+num_cases: 1000
+
+# h_magnitude: The absolute magnitude of the hypothetical asteroid.
+# This value is a primary constraint on the asteroid's size.
+# A lower H magnitude corresponds to a larger, brighter object.
+# Common values for exercises range from 15 (very large) to 30 (very small).
+h_magnitude: 22.0
+
+# --- Future parameters could be added here ---
+# For example, you could specify paths to orbital data files,
+# or flags to turn certain physics models on or off.
+
+# orbital_data_file: "path/to/cneos_data.txt"
+# enable_tsunami_model: true
