@@ -64,8 +64,6 @@ jupyterlab-pygments==0.3.0
 jupyterlab-server==2.27.3
 jupyterlab-widgets==3.0.15
 kiwisolver==1.4.9
-git+https://github.com/youruser/app-kosmos-0.git#egg=app-kosmos-0
-lark==1.3.0
 llvmlite==0.45.1
 markdown==3.9
 markupsafe==3.0.3
