@@ -51,14 +51,14 @@ class FragmentCloudModel:
         #break up altitude#
         If_value = 4.07*2*8*Ym_strength/(density*diameter*speed**2*math.sin(angle))
         if If_value<1:
-            burst_altitude_km = -8*(math.log(Ym_strength/speed**2) + 1.308 - 0.314*If_value -1.303*math.sqrt(1-If_value))
-            speed_at_breakup_ms=vi(burst_altitude_km)
+            breakup_altitude_km = -8*(math.log(Ym_strength/speed**2) + 1.308 - 0.314*If_value -1.303*math.sqrt(1-If_value))
+            speed_at_breakup_ms=vi(breakup_altitude_km)
         else:
-            burst_altitude_km = 0
+            breakup_altitude_km = 0
             speed_at_breakup_ms=0        
 
         return {
-            'burst_altitude_km': burst_altitude_km,
+            'breakup_altitude_km': breakup_altitude_km,
             'speed_at_breakup_ms':speed_at_breakup_ms
         }
         

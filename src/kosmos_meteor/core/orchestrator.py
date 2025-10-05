@@ -56,8 +56,8 @@ class Orchestrator:
             h_magnitude=self.config.get("h_magnitude", 22.0), 
             density=self.config.get("density", 5000),
             diameter=self.config.get("diameter", 1000),
-            speed=self.config.get("speed", 30),
-            angle=self.config.get("angle", 45),
+            speed=self.config.get("speed", 11),
+            angle=self.config.get("angle", 8),
             longitude=self.config.get("longitude", 0),
             latitude=self.config.get("latitude", 0)
         )

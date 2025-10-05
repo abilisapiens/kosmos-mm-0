@@ -38,8 +38,8 @@ class CraterModel:
         diameter = case['diameter']
         density=case['density']
         angle_rad=np.radians(case['angle']) # TBC: is it the same as initial angle?? Shouldn't it be changed at breakup?
-        burst_altitude_km=entry_result.get('burst_altitude_km', 0)
-        print(f"""burst_altitude_km = {burst_altitude_km}; check not 0""")        
+        breakup_altitude_km=entry_result.get('breakup_altitude_km', 0)
+        print(f"""breakup_altitude_km = {breakup_altitude_km}; check not 0""")        
 
         Cd=2.0
         Ch=0.1
@@ -50,7 +50,7 @@ class CraterModel:
         expansion_rate=100
 
         theta_rad = np.radians(angle_rad)
-        h0 = burst_altitude_km * 1000
+        h0 = breakup_altitude_km * 1000
         # Initial geometry
         radius0 = diameter / 2
         area0 = np.pi * radius0**2
@@ -72,6 +72,24 @@ class CraterModel:
         sol = solve_ivp(deriv, t_span, y0, method='RK45', dense_output=True,
                         events=lambda t, y: y[2] - 0)
         
+        # -- Special from Copilot for the burst_atitude ---
+        # Compute energy deposition profile
+        altitudes = sol.y[2]
+        velocities = sol.y[0]
+        masses = sol.y[1]
+        kinetic_energies = 0.5 * masses * velocities**2
+
+        # Compute energy loss per meter of altitude
+        energy_loss = -np.gradient(kinetic_energies, altitudes)
+
+        # Find altitude of maximum energy deposition (burst altitude)
+        max_deposition_index = np.argmax(energy_loss)
+        burst_altitude_m = altitudes[max_deposition_index]
+        burst_altitude_km = burst_altitude_m / 1000
+        speed_at_burst_ms = velocities[max_deposition_index]
+
+        # -- Emd of Special from Copilot for the burst_atitude ---
+
         speed_at_ground_ms = sol.y[0][-1]
         descent_time = sol.t[-1]
 
@@ -82,12 +100,18 @@ class CraterModel:
         if descent_time >= expansion_time:
             diameter_ground_m = diameter_expanded
             airburst_bool = True
+            burst_altitude_km=burst_altitude_km
+            speed_at_burst_ms=speed_at_burst_ms
         else:
             # Partial expansion
             radius_partial = radius0 + expansion_rate * descent_time
             diameter_ground_m = 2 * radius_partial
             airburst_bool = False
+            burst_altitude_km=0
+            speed_at_burst_ms=  speed_at_ground_ms 
 
+        print(f""""speed_at_burst_ms={speed_at_burst_ms}""")
+        print(f""""speed_at_ground_ms={speed_at_ground_ms}""")
         #return {
         #    'speed_at_ground_ms': speed_at_ground_ms,
         #    'diameter_ground_m':diameter_ground_m,
@@ -148,6 +172,8 @@ class CraterModel:
             'speed_at_ground_ms': speed_at_ground_ms,
             'diameter_ground_m':diameter_ground_m,
             'airburst_bool':airburst_bool,
+            'burst_altitude_km':burst_altitude_km,
+            'speed_at_burst_ms': speed_at_burst_ms,
             "transient_crater_diameter_m": round(D_tr, 2),
             "final_crater_diameter_m": round(D_f, 2),
             "crater_depth_m": round(depth, 2),
