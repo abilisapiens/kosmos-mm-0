@@ -8,6 +8,7 @@ from ..simulation.damage_models.local_damage import LocalDamageModel
 from ..simulation.damage_models.tsunami import TsunamiModel
 from ..simulation.damage_models.global_effects import GlobalEffectsModel
 from ..analysis.population import calculate_affected_population
+from ..simulation.damage_models.vulnerability_models import VulnerabilityCalculator
 
 class Orchestrator:
     """Manages the end-to-end execution of a PAIR simulation scenario.
@@ -32,6 +33,7 @@ class Orchestrator:
         self.local_damage_model = LocalDamageModel()
         self.tsunami_model = TsunamiModel()
         self.global_effects_model = GlobalEffectsModel()
+        self.vulnerability = VulnerabilityCalculator()
 
     def run_simulation(self) -> pd.DataFrame:
         """Executes the full simulation pipeline.
@@ -63,6 +65,8 @@ class Orchestrator:
             local_damage = self.local_damage_model.calculate_damage(case, entry_result)
             tsunami_damage = self.tsunami_model.calculate_damage(case, entry_result)
             global_effects = self.global_effects_model.calculate_damage(case, entry_result)
+            # Simulate Severity + Vulnerability (by 7 effects + combined)
+            vulnerability = self.vulnerability.calculate_all_vulnerabilities(case,entry_result)
 
             # Consolidate results for this case
             case_result = {
@@ -71,6 +75,7 @@ class Orchestrator:
                 **local_damage,
                 **tsunami_damage,
                 **global_effects,
+                **vulnerability,
             }
 
             # Step 3: Calculate affected population
