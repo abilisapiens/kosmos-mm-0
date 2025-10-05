@@ -75,8 +75,7 @@ class Orchestrator:
             tsunami_damage = self.tsunami_model.calculate_damage(case, entry_result)
             global_effects = self.global_effects_model.calculate_damage(case, entry_result)
             # Simulate Severity + Vulnerability (by 7 effects + combined)
-            vulnerability = self.vulnerability.calculate_all_vulnerabilities(case,entry_result)
-
+            vulnerability = self.vulnerability.calculate_all_vulnerabilities(case,entry_result,cr_result)
             # Consolidate results for this case
             case_result = {
                 **case.to_dict(),

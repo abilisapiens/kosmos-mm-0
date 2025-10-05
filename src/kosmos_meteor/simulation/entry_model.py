@@ -55,7 +55,7 @@ class FragmentCloudModel:
             speed_at_breakup_ms=vi(burst_altitude_km)
         else:
             burst_altitude_km = 0
-            speed_at_breakup=0        
+            speed_at_breakup_ms=0        
 
         return {
             'burst_altitude_km': burst_altitude_km,

@@ -20,7 +20,7 @@
         dict with impact energy, thermal energy, fireball radius, and thermal dose at R
         """
 
-        
+
         if airburst == True:
             eta = 0.05
         else:

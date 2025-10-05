@@ -32,11 +32,14 @@ class CraterModel:
         - Whether full expansion occurred (bool)
         """
         # Part 1  -Collins pancake
-        speed_at_breakup_ms=case['speed_at_breakup_ms']
+        speed_at_breakup_ms=entry_result.get('speed_at_breakup_ms',0)
+        print(entry_result)
+        print(f"""speed_at_breakup_ms = {speed_at_breakup_ms}; check not 0""")        
         diameter = case['diameter']
         density=case['density']
-        angle=np.radians(case['angle']) # TBC: is it the same as initial angle?? Shouldn't it be changed at breakup?
-        burst_altitude_km=case['burst_altitude_km']
+        angle_rad=np.radians(case['angle']) # TBC: is it the same as initial angle?? Shouldn't it be changed at breakup?
+        burst_altitude_km=entry_result.get('burst_altitude_km', 0)
+        print(f"""burst_altitude_km = {burst_altitude_km}; check not 0""")        
 
         Cd=2.0
         Ch=0.1
@@ -46,7 +49,7 @@ class CraterModel:
         pancake_coefficient=7
         expansion_rate=100
 
-        theta_rad = np.radians(angle)
+        theta_rad = np.radians(angle_rad)
         h0 = burst_altitude_km * 1000
         # Initial geometry
         radius0 = diameter / 2
@@ -102,19 +105,18 @@ class CraterModel:
         )"""
 
         # Part 2 - Impact crater model
-        v=case['speed_at_ground_ms']
-        d = case['diameter_ground_m']
-        rho_p=case['density']
-        rho_t=case['density']*0.9    # TBC: should be based on other criteria!!!
-        theta_rad=np.radians(case['angle']) # TBC: same angle t strike ground?
+        v = speed_at_ground_ms
+        d = diameter_ground_m
+        rho_p = density
+        rho_t = 2000    # TBC: to be variablized based on the latatitude longitude
+        theta_rad=angle_rad # TBC: same angle t strike ground? YEs pour Abel
         
         # Constants
-        g = 9.81  # gravity (m/s²)
+        g = 9.81    # gravity (m/s²)
 
         # Step 3: Pi-group scaling for transient crater diameter (D_tr)
         # Equation from Collins et al. (2005):
-        # D_tr = k1 * (g^-0.22) * (rho_p/rho_t)^0.333 * d^0.78 * v_vertical^0.44
-        k1 = 1.161  # empirical constant for rock targets
+        k1 = 1.161      # empirical constant for rock targets
         D_tr = k1 * (g**-0.22) * (rho_p / rho_t*math.sin(theta_rad))**0.333 * d**0.78 * v**0.44
 
         # Step 4: Final crater diameter (D_f)
@@ -131,6 +133,17 @@ class CraterModel:
         # From Melosh (1989): T = 0.14 * D_f^0.74 / (1 + (D_f / 1000)^2)
         T_ejecta = 0.14 * D_f**0.74 / (1 + (D_f / 1000)**2)
 
+        # Step 7: Impact energy
+        if airburst_bool == True:
+            eta = 0.05
+        else:
+            eta = 0.03
+        # Step 6.1: Impactor mass
+        volume = (4/3) * math.pi * (d / 2)**3
+        mass = rho_p * volume
+        # Step 6.2: Impact energy
+        impact_energy_j = 0.5 * mass * v**2 # in joules
+        impact_energy_kt = impact_energy_j /  4184000000000 # in kt
         return {
             'speed_at_ground_ms': speed_at_ground_ms,
             'diameter_ground_m':diameter_ground_m,
@@ -139,5 +152,7 @@ class CraterModel:
             "final_crater_diameter_m": round(D_f, 2),
             "crater_depth_m": round(depth, 2),
             "ejecta_thickness_at_rim_m": round(T_ejecta, 2),
+            'impact_energy_j':impact_energy_j,
+            'impact_energy_kt':impact_energy_kt
         }
 
