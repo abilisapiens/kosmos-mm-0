@@ -80,7 +80,7 @@ def main():
 
     # --- 4. Print Summary ---
     print("\n--- 📊 Run Summary ---")
-    mean_diameter = results_df['diameter_m'].mean()
+    mean_diameter = results_df['diameter'].mean()
     mean_energy = results_df['impact_energy_mt'].mean()
     mean_affected_pop = results_df['max_affected_population'].mean()
     max_affected_pop = results_df['max_affected_population'].max()

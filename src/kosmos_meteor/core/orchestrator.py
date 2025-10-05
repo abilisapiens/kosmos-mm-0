@@ -4,6 +4,7 @@ from pathlib import Path
 
 from ..inputs.case_generator import generate_cases
 from ..simulation.entry_model import FragmentCloudModel
+from ..simulation.crater_model import CraterModel
 from ..simulation.damage_models.local_damage import LocalDamageModel
 from ..simulation.damage_models.tsunami import TsunamiModel
 from ..simulation.damage_models.global_effects import GlobalEffectsModel
@@ -30,6 +31,7 @@ class Orchestrator:
 
         # Initialize models
         self.fcm = FragmentCloudModel()
+        self.crm = CraterModel()
         self.local_damage_model = LocalDamageModel()
         self.tsunami_model = TsunamiModel()
         self.global_effects_model = GlobalEffectsModel()
@@ -51,7 +53,13 @@ class Orchestrator:
         print("Step 1: Generating impact cases...")
         impact_cases = generate_cases(
             num_cases=self.config.get("num_cases", 1000),
-            h_magnitude=self.config.get("h_magnitude", 22.0) # absolute magnitude (H) of the asteroid
+            h_magnitude=self.config.get("h_magnitude", 22.0), 
+            density=self.config.get("density", 5000),
+            diameter=self.config.get("diameter", 1000),
+            speed=self.config.get("speed", 30),
+            angle=self.config.get("angle", 45),
+            longitude=self.config.get("longitude", 0),
+            latitude=self.config.get("latitude", 0)
         )
         print(f"Generated {len(impact_cases)} cases.")
 
@@ -60,6 +68,7 @@ class Orchestrator:
         for _, case in tqdm(impact_cases.iterrows(), total=len(impact_cases)):
             # Simulate atmospheric entry
             entry_result = self.fcm.run_entry(case)
+            cr_result= self.crm.run_impact_crater_model(case,entry_result)
 
             # Simulate damage mechanisms
             local_damage = self.local_damage_model.calculate_damage(case, entry_result)
@@ -72,6 +81,7 @@ class Orchestrator:
             case_result = {
                 **case.to_dict(),
                 **entry_result,
+                **cr_result,
                 **local_damage,
                 **tsunami_damage,
                 **global_effects,

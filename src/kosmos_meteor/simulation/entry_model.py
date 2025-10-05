@@ -1,4 +1,7 @@
 import pandas as pd
+import math
+import numpy as np
+from scipy.integrate import solve_ivp
 
 class FragmentCloudModel:
     """Simulates atmospheric entry and breakup of an asteroid.
@@ -18,22 +21,45 @@ class FragmentCloudModel:
             dict: A dictionary with key results like 'burst_altitude_km' and
                 'surface_impact_energy_mt'.
         """
+        # speed=30000;density=5000;diameter=300;angle=np.radians(90)
+        #from math import *
         # Simplified logic: smaller/weaker objects burst higher,
         # larger/stronger objects burst lower or impact.
-        strength = case['strength_mpa']
-        diameter = case['diameter_m']
-        impact_energy = case['impact_energy_mt']
+        speed = case['speed']*1000
+        diameter = case['diameter']
+        density=case['density']
+        angle=np.radians(case['angle'])
 
-        # Heuristic for burst altitude
-        if diameter > 500 or strength > 5:  # Large or strong object
-            burst_altitude_km = 0
-            surface_impact_energy_mt = impact_energy
+        #variables calculees
+        E = np.pi/12*diameter**3*density*speed**2
+
+        #z in km#
+        def vi(z):
+            vi_ms=speed*math.exp(-3*p(z)*2*8/(4*density*diameter*math.sin(angle)))
+            return(vi_ms)  # Speed in ms
+              
+        def p(z):
+                b=math.exp(-z/8)
+                return(b)
+        #Pressure on the impactor#
+        def Y(z):
+            P = p(z)*vi(z)**2
+            return(P)
+
+        #Yield strength : minimal force that must be used to have it undergo plastic changes --> valid for density of 1000-8000 kg.m**-3#
+        Ym_strength = 10**(2.107+0.0624*math.sqrt(density))
+        #break up altitude#
+        If_value = 4.07*2*8*Ym_strength/(density*diameter*speed**2*math.sin(angle))
+        if If_value<1:
+            burst_altitude_km = -8*(math.log(Ym_strength/speed**2) + 1.308 - 0.314*If_value -1.303*math.sqrt(1-If_value))
+            speed_at_breakup_ms=vi(burst_altitude_km)
         else:
-            # Weaker objects burst higher
-            burst_altitude_km = max(0, 40 - (strength * 4) - (diameter / 10))
-            surface_impact_energy_mt = 0 # Assume full airburst
+            burst_altitude_km = 0
+            speed_at_breakup=0        
 
         return {
             'burst_altitude_km': burst_altitude_km,
-            'surface_impact_energy_mt': surface_impact_energy_mt
+            'speed_at_breakup_ms':speed_at_breakup_ms
         }
+        
+ 

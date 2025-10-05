@@ -26,6 +26,61 @@ Welcome to the **Probabilistic Asteroid Impact Risk (PAIR)** simulator. This too
 st.sidebar.header("Scenario Configuration")
 st.sidebar.write("Define the parameters for the hypothetical asteroid.")
 
+density = st.sidebar.slider(
+    "Density (Kg/m3)",
+    min_value=1000,
+    max_value=8000,
+    value=1500,
+    step=10,
+    help="A measure of the asteroid's  density."
+)
+
+diameter = st.sidebar.slider(
+    "Diameter (m)",
+    min_value=1,
+    max_value=5000,
+    value=10,
+    step=1,
+    help="A measure of the asteroid's  diameter when detected."
+)
+
+speed = st.sidebar.slider(
+    "Speed (km/s)",
+    min_value=11,
+    max_value=72,
+    value=20,
+    step=1,
+    help="A measure of the asteroid's speed when entring the atmropshere."
+)
+
+
+angle = st.sidebar.slider(
+    "Angle (degre)",
+    min_value=0,
+    max_value=90,
+    value=20,
+    step=1,
+    help="A measure of the angle of the the asteroid's trajectory with tangent's Earth."
+)
+
+
+longitude = st.sidebar.slider(
+    "longitude (degre)",
+    min_value=-180,
+    max_value=180,
+    value=20,
+    step=1,
+    help="Earth asteroid' impact longitude."
+)
+latitude = st.sidebar.slider(
+    "latitude (degre)",
+    min_value=-90,
+    max_value=90,
+    value=20,
+    step=1,
+    help="Earth asteroid' impact latitude."
+)
+
 h_magnitude = st.sidebar.slider(
     "Absolute Magnitude (H)",
     min_value=15.0,
@@ -53,6 +108,12 @@ def run_cached_simulation(config):
 if st.sidebar.button("Run Simulation"):
     scenario_config = {
         "h_magnitude": h_magnitude,
+        "density": density,
+        "diameter":diameter,
+        "speed":speed,
+        "angle":angle,
+        "longitude":longitude,
+        "latitude":latitude,
         "num_cases": num_cases,
         "distance_km": 0,
     }
@@ -67,7 +128,7 @@ if 'results_df' in st.session_state:
 
     # Display key metrics
     col1, col2, col3, col4 = st.columns(4)
-    mean_diameter = results_df['diameter_m'].mean()
+    mean_diameter = results_df['diameter'].mean()
     mean_energy = results_df['impact_energy_mt'].mean()
     mean_max_affected_pop = results_df['max_affected_population'].mean()
     max_max_affected_pop = results_df['max_affected_population'].max()    
@@ -82,8 +143,8 @@ if 'results_df' in st.session_state:
         results_df,
         x="impact_energy_mt",
         y="max_affected_population",
-        size="diameter_m",
-        color="strength_mpa",
+        size="diameter",
+        color="diameter",
         hover_name=results_df.index,
         #log_x=True,
         #log_y=True,
@@ -91,8 +152,8 @@ if 'results_df' in st.session_state:
         labels={
             "impact_energy_mt": "Impact Energy (Megatons) - Log Scale",
             "max_affected_population": "Max Affected Population - Log Scale",
-            "diameter_m": "Diameter (m)",
-            "strength_mpa": "Strength (MPa)"
+            "diameter": "Diameter (m)",
+            "diameter": "diameter"
         },
         color_continuous_scale=px.colors.sequential.Plasma,
         size_max=60
@@ -109,9 +170,9 @@ if 'results_df' in st.session_state:
     st.subheader("Distribution of Key Parameters")
     fig1 = px.histogram(
         results_df,
-        x="diameter_m",
+        x="diameter",
         title="Distribution of Asteroid Diameters",
-        labels={'diameter_m': 'Diameter (m)'}
+        labels={'diameter': 'Diameter (m)'}
     )
     st.plotly_chart(fig1, use_container_width=True)
 
