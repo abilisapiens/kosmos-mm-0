@@ -1,12 +1,15 @@
 # ☄️ Meteor Madness: NASA Space Apps Challenge 2025
 Innovative solutions for space exploration and meteor studies  
 ---
-## Project deliverables 
+
+## Project deliverables
+
 ✅ [WebApp](https://kosmos-meteor-madness-0.streamlit.app/)
 
 ✅ [Video](SPACEAPPS_2025/spaceapps2025_meteor-madness-video-intro_alphaKosmosTeam.mp4)
 
 ✅ [Slides](SPACEAPPS_2025/spaceapps2025_meteor-madness-slides-intro_alphaKosmosTeam.pptx)
+
 ---
 
 ## 🎯 Objectives
