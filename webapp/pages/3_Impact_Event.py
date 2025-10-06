@@ -36,34 +36,34 @@ SEVERITY_MAX = {
     "combined": 100,
 }
 EFFECT_COLORS = {
-    "effect1": "red",
+    "effect1": "black",
     "effect2": "orange",
     "effect3": "yellow",
     "effect4": "green",
     "effect5": "blue",
     "effect6": "purple",
     "effect7": "brown",
-    "combined": "black",
+    "combined": "red",
 }
 
 # mock effect data
 effects_data = {
-    "effect1": {
-        "distance": [200000,100000, 50000, 10000, 1000],
-        "severity": [10,20, 30, 60, 90],
-        "vulnerability": [0.1,0.2, 0.3, 0.6, 0.9]
-    },
-    "effect2": {
-        "distance": [200000,100000, 50000, 10000, 1000],
-        "severity": [20,30, 40, 70, 100],
-        "vulnerability": [0.2, 0.3,0.4, 0.7, 1.0]
-    },
+#    "effect1": {
+#        "distance": [200000,100000, 50000, 10000, 1000],
+#        "severity": [10,20, 30, 60, 90],
+#        "vulnerability": [0.1,0.2, 0.3, 0.6, 0.9]
+#    },
+#    "effect2": {
+#        "distance": [200000,100000, 50000, 10000, 1000],
+#        "severity": [20,30, 40, 70, 100],
+#        "vulnerability": [0.2, 0.3,0.4, 0.7, 1.0]
+#    },
     # ...
     "combined": {
         "distance": [200000,100000, 50000, 10000, 1000],
         "severity": [25,33, 50, 75, 100],
         "vulnerability": [0.25,0.33, 0.5, 0.75, 1.0]
-    }
+    },
 }
 # ======================
 # --- HELPER FUNCTION ---
