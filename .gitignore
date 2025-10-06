@@ -30,7 +30,8 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-
+# doc spaceapps
+/SPACEAPPS_2025
 
 
 
