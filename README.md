@@ -5,7 +5,7 @@ Innovative solutions for space exploration and meteor studies
 
 ## ✅ Project deliverables
 
-* [WebApp](https://kosmos-meteor-madness-0.streamlit.app/)
+* [WebApp](https://kosmos-meteor-madness-0.streamlit.app/) (*...wait for the app to load...* ⌛)
 * [![Watch the video](https://www.dailymotion.com/thumbnail/video/x9rpg2g)](https://dai.ly/x9rpg2g)  
 * [Download the video MP4 file](SPACEAPPS_2025/spaceapps2025_meteor-madness-video-intro_alphaKosmosTeam.mp4)
 * [Download the PPT Slides](SPACEAPPS_2025/spaceapps2025-meteor-madness-intro-slides_KosmosTeam.pptx)
