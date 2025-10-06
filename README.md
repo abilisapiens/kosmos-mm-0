@@ -1,5 +1,5 @@
 # ☄️ Meteor Madness by team Kosmos
-# NASA SpaceApps Challenge 2025
+# 🚀 NASA SpaceApps Challenge 2025
 Innovative solutions for space exploration and meteor studies  
 ---
 
