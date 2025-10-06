@@ -1,7 +1,5 @@
-import streamlit as st
 # ☄️ Meteor Madness: NASA Space Apps Challenge 2025
 Innovative solutions for space exploration and meteor studies  
-
 
 ---
 
