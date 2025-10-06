@@ -84,7 +84,7 @@ class Orchestrator:
                 **local_damage,
                 **tsunami_damage,
                 **global_effects,
-                **vulnerability,
+                **vulnerability
             }
 
             # Step 3: Calculate affected population
