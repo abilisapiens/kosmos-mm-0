@@ -75,7 +75,6 @@ jupyterlab-server==2.27.3
 jupyterlab-widgets==3.0.15
 keyring==25.6.0
 kiwisolver==1.4.9
--e file:///home/antobiar@reso.local/Documents/projects/git_RD/app-kosmos-0%20(copy)
 lark==1.3.0
 llvmlite==0.45.1
 markupsafe==3.0.3
