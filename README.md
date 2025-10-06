@@ -33,6 +33,36 @@ Innovative solutions for space exploration and meteor studies
   - Eventual tsunami
 - Vulgarization: raw data transformed to facilitate understanding and visualization.
 
+**High-Level Entry Impacts Modeling**
+flowchart TD
+  A["Asteroid enters atmosphere"] --> B{"Break Up altitude<br/>Above ground?"}
+  B -->|Yes| C["Asteroid breaks up<br/>in mid air"]
+  B -->|No| F["Asteroid reaches<br/>surface"]
+
+  C --> D{"Airburst altitude<br/>Above ground?"}
+  D -->|Yes| E["Asteroid experiences<br/>Airburst"]
+  D -->|No| J["Asteroid fragments<br/>impact ground"]
+
+  %% Both routes go through the same water/ground decision
+  F --> G{"Water impact?"}
+  J --> G
+
+  G -->|Yes| H["(Fragments of) Asteroid<br/>impacts Ocean"]
+  G -->|No| I["(Fragments of) Asteroid<br/>impacts solid ground"]
+
+  %% Effects regrouped
+  EC["Common Effects<br/>• Overpressure<br/>• High Winds<br/>• Thermal Radiation"]
+  EOS["Ocean-Specific Effects<br/>• Tsunami"]
+  EGS["Ground-Specific Effects<br/>• Final Crater Size<br/>• Ejecta Blanket<br/>• Seismic Shock"]
+
+  %% Connections to effects
+  E --> EC
+  H --> EC
+  H --> EOS
+  I --> EC
+  I --> EGS 
+
+
 ---
 
 ## 📊 Vulnerability and Casualty Modeling
@@ -52,3 +82,4 @@ Innovative solutions for space exploration and meteor studies
 - Combines science, coding, and creativity.
 - Stimulates the user as they actively participate in the learning process.
 - Vulgarization work to **democratize the phenomenon**.
+
