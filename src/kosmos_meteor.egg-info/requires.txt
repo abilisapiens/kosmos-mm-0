@@ -7,6 +7,15 @@ numba
 tqdm
 streamlit>=1.50.0
 plotly>=6.3.0
+streamlit-folium>=0.25.3
+globe>=1.0.52
+global-land-mask>=1.0.0
+requests>=2.32.5
+shapely>=2.1.2
+geopandas>=1.1.1
+fiona>=1.10.1
+astropy>=7.1.0
+poliastro>=0.7.0
 
 [all]
 kosmos_meteor[viz]

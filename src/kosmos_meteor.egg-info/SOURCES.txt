@@ -12,6 +12,13 @@ src/kosmos_meteor/analysis/population.py
 src/kosmos_meteor/analysis/risk_assessment.py
 src/kosmos_meteor/core/__init__.py
 src/kosmos_meteor/core/orchestrator.py
+src/kosmos_meteor/impacter/__init__.py
+src/kosmos_meteor/impacter/data/__init__.py
+src/kosmos_meteor/impacter/data/neo.py
+src/kosmos_meteor/impacter/impact/__init__.py
+src/kosmos_meteor/impacter/impact/compute.py
+src/kosmos_meteor/impacter/orbit/__init__.py
+src/kosmos_meteor/impacter/orbit/propagate.py
 src/kosmos_meteor/inputs/__init__.py
 src/kosmos_meteor/inputs/asteroid_properties.py
 src/kosmos_meteor/inputs/case_generator.py
@@ -19,10 +26,12 @@ src/kosmos_meteor/inputs/orbital_parameters.py
 src/kosmos_meteor/simulation/__init__.py
 src/kosmos_meteor/simulation/entry_model.py
 src/kosmos_meteor/simulation/damage_models/__init__.py
-src/kosmos_meteor/simulation/damage_models/base_damage_model.py
+src/kosmos_meteor/simulation/damage_models/base_damage_models.py
 src/kosmos_meteor/simulation/damage_models/global_effects.py
 src/kosmos_meteor/simulation/damage_models/local_damage.py
 src/kosmos_meteor/simulation/damage_models/tsunami.py
+src/kosmos_meteor/simulation/damage_models/vulnerability_models INI.py
+src/kosmos_meteor/simulation/damage_models/vulnerability_models.py
 src/kosmos_meteor/utils/__init__.py
 src/kosmos_meteor/utils/constants.py
 src/kosmos_meteor/utils/data_io.py
