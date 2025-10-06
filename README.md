@@ -33,7 +33,9 @@ Innovative solutions for space exploration and meteor studies
   - Eventual tsunami
 - Vulgarization: raw data transformed to facilitate understanding and visualization.
 
-**High-Level Entry Impacts Modeling**
+**High-Level Entry Impacts Modeling (ARMOR)**
+
+```mermaid
 flowchart TD
   A["Asteroid enters atmosphere"] --> B{"Break Up altitude<br/>Above ground?"}
   B -->|Yes| C["Asteroid breaks up<br/>in mid air"]
@@ -61,6 +63,8 @@ flowchart TD
   H --> EOS
   I --> EC
   I --> EGS 
+```
+Source : ARMOR 2017 + authors
 
 
 ---
