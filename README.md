@@ -10,6 +10,13 @@ Innovative solutions for space exploration and meteor studies
 * [Download the video MP4 file](SPACEAPPS_2025/spaceapps2025-meteor-madness-intro-video_KosmosTeam.mp4)
 * [Download the PPT Slides](SPACEAPPS_2025/spaceapps2025-meteor-madness-intro-slides_KosmosTeam.pptx)
 
+
+<video controls width="640">
+  <source src="https://raw.githubusercontent.com/abilisapiens/kosmos-mm-0/main/SPACEAPPS_2025/spaceapps2025_meteor-madness-video-intro_alphaKosmosTeam.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+
 ---
 
 ## 🎯 Objectives
